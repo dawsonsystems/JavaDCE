@@ -1,65 +1,62 @@
-/*
-* Copyright (c) 2011 the original author or authors
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
-import org.gradle.api.XmlProvider
-import org.gradle.api.artifacts.maven.MavenDeployment
+//import org.gradle.api.XmlProvider
+//import org.gradle.api.artifacts.maven.MavenDeployment
 
 apply plugin: 'groovy'
-apply plugin: 'maven'
-apply plugin: 'signing'
+//apply plugin: 'maven'
+//apply plugin: 'signing'
 
-group = 'org.linuxmce'
+/*group = 'org.linuxmce'
 version = '0.1'
 packaging = 'jar'
-
-configurations {
-    published.extendsFrom archives, signatures
-}
-
+*/
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    compile gradleApi()
-    groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.4'
+  compile 'mysql:mysql-connector-java:5.1.10'
+  compile group: 'org.apache.velocity', name:'velocity', version:'1.7'
+  compile gradleApi()
+  groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
 }
 
-task groovydocJar(type: Jar, dependsOn: groovydoc) {
-    classifier = 'javadoc'
-    from 'build/docs/groovydoc'
-}
+//configurations {
+//    published.extendsFrom archives, signatures
+//}
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
+//repositories {
+//    mavenCentral()
+//}
+//
+//dependencies {
+//
+//    compile group: 'org.apache.velocity', name:'velocity', version:'1.7'
+//  //compile gradleApi()
+//    groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
+//}
 
-artifacts {
-    archives jar
-    archives groovydocJar
-    archives sourcesJar
-}
+//task groovydocJar(type: Jar, dependsOn: groovydoc) {
+//    classifier = 'javadoc'
+//    from 'build/docs/groovydoc'
+//}
+//
+//task sourcesJar(type: Jar) {
+//    from sourceSets.main.allSource
+//    classifier = 'sources'
+//}
+//
+//artifacts {
+//    archives jar
+//    archives groovydocJar
+//    archives sourcesJar
+//}
+//
+////********* artifact signing *********
+//signing {
+//    sign configurations.archives
+//}
 
-//********* artifact signing *********
-signing {
-    sign configurations.archives
-}
-
-uploadPublished {
+/*uploadPublished {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signPom(deployment) }
@@ -112,7 +109,7 @@ uploadPublished {
            }
         }
     }
-}
+}    */
 
 task wrapper(type: Wrapper) {
     gradleVersion = '0.9.1'
